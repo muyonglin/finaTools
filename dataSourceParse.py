@@ -189,10 +189,13 @@ class sinaFinanParser(generalFunction):
 		tmpStr = re.findall("<!--分红 begin-->(.*?)<!--分红 end-->",html,re.DOTALL)
 		tmpFenHong_1 = re.findall("<tbody>(.*?)</tbody>",tmpStr[0],re.DOTALL)
 		tmpFenHong_2 = re.findall("<tr>(.*?)</tr>",tmpFenHong_1[0],re.DOTALL)
+		#print(tmpFenHong_2)
 		tmpFenHong_3 = []
-		for item in tmpFenHong_2:
-			tmp = re.findall("<td>(.*?)</td>",item)
-			if tmp[5] == '--':
+		for i in range(len(tmpFenHong_2)):
+			tmp = re.findall("<td>(.*?)</td>",tmpFenHong_2[i])
+			if tmp[5] == '--'  and i == 0:
+				continue
+			elif tmp[5] == '--'  and i != 0:
 				tmpFenHong_3.append((tmp[0],{'送':tmp[1],'转':tmp[2],'派':tmp[3]}))
 			else:
 				tmpFenHong_3.append((tmp[5],{'送':tmp[1],'转':tmp[2],'派':tmp[3]}))
