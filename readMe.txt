@@ -25,3 +25,12 @@ git push -u origin master
 …or import code from another repository
 You can initialize this repository with code from a Subversion, Mercurial, or TFS project.
 
+
+
+
+#dataSourceParse.py
+download price, finacial and stock list data from website
+write these data into sqlite3 database
+
+#databaseMaintainance.py
+updata downloaded or calculated data into database

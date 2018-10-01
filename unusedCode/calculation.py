@@ -16,7 +16,7 @@ class calculatePEPB(generalFunction):
 	"""
 	def __init__(self, stockCode
 		,priceDatabasePath="D:/programe-data/database/stockHistInfoDatabase/stockInfo.db"
-		,finaDatabase="D:/programe-data/database/stockHistInfoDatabase/xueQiuFinanInfo.db"):
+		,finaDatabase="D:/programe-data/database/stockHistInfoDatabase/stockFinanInfo.db"):
 
 		self.sc = stockCode
 		self.dPp = priceDatabasePath
@@ -57,9 +57,9 @@ class calculatePEPB(generalFunction):
 		#[(date,close),(),()]
 		return(priceData)
 	def getMgsyData(self):
-		tableNameMS = "HiistFinance_" + self.sc
+		tableNameMS = "MeiGuShouYi_" + self.sc
 		try:
-			mgsyData = generalFunction.fetchDataFromDatabase(self,self.dPf,tableNameMS,['date','basiceps'])
+			mgsyData = generalFunction.fetchDataFromDatabase(self,self.dPf,tableNameMS,['date','nianMoZuiXintbst','gunDongtbsy'])
 		except:
 			print("can't fetch Mgsy data")
 		#mgsyData
@@ -67,15 +67,24 @@ class calculatePEPB(generalFunction):
 		return(mgsyData)	
 
 	def getMgjzcData(self):
-		tableNameMZ = "HiistFinance_" + self.sc
+		tableNameMZ = "MeiGuJingZiChan_" + self.sc
 		try:
-			mgjzcData = generalFunction.fetchDataFromDatabase(self,self.dPf,tableNameMZ,['date','naps'])
+			mgjzcData = generalFunction.fetchDataFromDatabase(self,self.dPf,tableNameMZ,['date','tanBojzc'])
 		except:
 			print("can't fetch mgjzc data")
 			mgjzcData = 0
 		#mgjscData
 		#[('date','tanBojzc'),(),()]	
 		return(mgjzcData)	
+
+	def getDividenData(self):
+		tableNameD = "MeiNianFenHong_" + self.sc
+		try:
+			dividenData = generalFunction.fetchDataFromDatabase(self,self.dPf,tableNameD,['date','pai','song','zhuan'])
+		except:
+			dividenData = 0
+			print("can't fetch diveden data")
+		return(dividenData)
 
 	def getDividenDataFromTencent(self):
 		import datetime as dt
